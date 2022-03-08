@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AttendanceApp</string>
+    <string name="image_set">image</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="authentication">Authentication</string>
+    <string name="welcome">Welcome, Please sign in or sign up.</string>
+    <string name="button">button</string>
 </resources>
