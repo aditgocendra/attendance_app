@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.ark.attendanceapp.View.Auth.Authentication;
+import com.ark.attendanceapp.View.Employee.HomeApp;
 import com.ark.attendanceapp.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,14 +26,22 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 routes();
             }
-        }, 2000);
+        }, 1000);
 
 
 
     }
 
     private void routes(){
-        Utility.updateUI(this, Authentication.class);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+
+        if (user != null){
+            Utility.updateUI(this, HomeApp.class);
+        }else {
+            Utility.updateUI(this, Authentication.class);
+        }
+
         finish();
     }
 }
