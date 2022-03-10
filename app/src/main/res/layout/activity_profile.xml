@@ -40,8 +40,8 @@
 
                 <ImageView
                     android:id="@+id/back_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="12dp"
                     android:layout_marginEnd="8dp"
@@ -54,18 +54,21 @@
                     android:layout_gravity="center_vertical"
                     android:fontFamily="@font/poppins_medium"
                     android:gravity="center_vertical"
+                    android:includeFontPadding="false"
                     android:text="User Profile"
                     android:textColor="@color/white"
                     android:textSize="19sp" />
 
             </LinearLayout>
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_img"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/women_user_default_img" />
+                android:src="@drawable/women_user_default_img"
+                app:civ_border_width="1dp"
+                app:civ_border_color="@color/white"/>
 
             <!--            all role-->
             <androidx.cardview.widget.CardView
@@ -87,7 +90,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:layout_marginBottom="5dp"
                         android:layout_marginStart="14dp"
                         android:layout_marginEnd="14dp"
                         android:fontFamily="@font/poppins_bold"
@@ -100,7 +102,6 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:layout_marginBottom="3dp"
                         android:hint="Email"
                         android:textColorHint="#B3B3B3">
@@ -165,27 +166,34 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <Button
-                        android:id="@+id/edit_photo"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/pick_photo_btn"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="18dp"
-                        android:layout_marginEnd="18dp"
-                        android:layout_marginBottom="3dp"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginEnd="14dp"
+                        android:minHeight="50dp"
+                        app:cornerRadius="32dp"
+                        android:text="Edit Photo Profile"
+                        android:textSize="12sp"
+                        android:textAllCaps="false"
                         android:fontFamily="@font/poppins_medium"
-                        android:text="Edit Profile Picture"
-                        android:textAllCaps="false" />
+                        app:strokeColor="@color/yellow"/>
 
-                    <Button
-                        android:id="@+id/edit_data_profile_btn"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/save_btn"
+                        style="@style/Widget.MaterialComponents.Button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="18dp"
-                        android:layout_marginEnd="18dp"
-                        android:layout_marginBottom="3dp"
-                        android:fontFamily="@font/poppins_medium"
-                        android:text="Save Change"
-                        android:textAllCaps="false" />
+                        android:layout_marginStart="14dp"
+                        android:layout_marginEnd="14dp"
+                        android:minHeight="50dp"
+                        app:cornerRadius="32dp"
+                        android:text="Save Changes"
+                        android:textSize="12sp"
+                        android:textAllCaps="false"
+                        android:fontFamily="@font/poppins_medium"/>
 
                 </LinearLayout>
 
@@ -209,7 +217,7 @@
                     android:layout_margin="10dp"
                     android:orientation="vertical">
 
-                    <!--                    role admin-->
+                    <!--role admin-->
                     <TextView
                         android:id="@+id/administrator_btn"
                         android:layout_width="match_parent"
@@ -221,7 +229,7 @@
                         android:textSize="13sp"
                         android:text="Administrator"
                         android:textColor="#B3B3B3"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:drawableEndCompat="@drawable/ic_admin_panel"/>
 
                     <TextView
@@ -238,7 +246,7 @@
                         app:drawableEndCompat="@drawable/ic_info"/>
 
                     <TextView
-                        android:id="@+id/logout_btn"
+                        android:id="@+id/sign_out_btn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"

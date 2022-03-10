@@ -7,6 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".View.Auth.SignUp">
 
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:progressTint="@color/orange"
+        android:translationZ="1dp"
+        android:visibility="gone"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,7 +65,7 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/poppins_regular"
                 android:hint="Username"
-                android:inputType="textEmailAddress"
+                android:inputType="text"
                 android:maxLines="1"
                 android:paddingStart="17dp"
                 android:paddingTop="15dp"
@@ -94,10 +103,10 @@
                 android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:textColor="@color/gray"
                 android:paddingStart="17dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
+                android:textColor="@color/gray"
                 android:textSize="12sp" />
 
             <!--IMAGE-->
@@ -128,12 +137,12 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/poppins_regular"
                 android:hint="Password"
-                android:inputType="textEmailAddress"
+                android:inputType="textPassword"
                 android:maxLines="1"
-                android:textColor="@color/gray"
                 android:paddingStart="17dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
+                android:textColor="@color/gray"
                 android:textSize="12sp" />
 
             <!--IMAGE-->
@@ -157,14 +166,14 @@
             android:background="@drawable/background_outline">
 
             <EditText
-                android:id="@+id/email_sign_in"
+                android:id="@+id/re_pass_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/re_pass_user_icon"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/poppins_regular"
                 android:hint="Confirm Password"
-                android:inputType="textEmailAddress"
+                android:inputType="textPassword"
                 android:maxLines="1"
                 android:textColor="@color/gray"
                 android:paddingStart="17dp"

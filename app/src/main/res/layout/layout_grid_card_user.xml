@@ -5,44 +5,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/card_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="140dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:layout_centerInParent="true"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp">
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:minWidth="160dp"
+        android:minHeight="180dp"
+        app:cardCornerRadius="12dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_gravity="center"
-            android:padding="16dp"
-            android:layout_margin="5dp">
+            android:layout_margin="8dp"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/image_product_manage_iv"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_user_profile_iv"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
                 android:src="@drawable/women_user_default_img"
-                android:layout_gravity="center"/>
+                app:civ_border_color="@color/orange"
+                app:civ_border_width="4dp" />
 
             <TextView
-                android:id="@+id/name_product_manage_tv"
+                android:id="@+id/username_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Username"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/poppins_medium"
                 android:includeFontPadding="false"
+                android:text="Username"
+                android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="12sp"
-                android:layout_marginTop="8dp"
-                android:textAlignment="center"/>
-
+                android:textSize="14sp" />
 
 
         </LinearLayout>

@@ -46,10 +46,12 @@
                         android:layout_gravity="center_vertical|start"
                         android:layout_weight="1"/>
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/account_img"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
+                        app:civ_border_width="1dp"
+                        app:civ_border_color="@color/white"
                         android:src="@drawable/women_user_default_img"
                         android:layout_gravity="end"
                         android:layout_weight="0"/>
@@ -65,6 +67,7 @@
                 android:layout_centerInParent="true">
 
                 <TextView
+                    android:id="@+id/date_text"
                     android:layout_width="wrap_content"
                     android:layout_height="70dp"
                     android:layout_gravity="center_horizontal"
@@ -76,6 +79,7 @@
                     android:layout_marginTop="40dp"/>
 
                 <TextView
+                    android:id="@+id/month_and_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="March, 2022"
@@ -126,12 +130,14 @@
 
     </LinearLayout>
 
-    <TextView
+    <TextClock
+        android:id="@+id/time_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:text="21:36 AM"
         android:fontFamily="@font/poppins_medium"
+        android:format24Hour="hh:mm a"
         android:textSize="14sp"
         android:textColor="@color/orange"
         android:layout_alignParentBottom="true"

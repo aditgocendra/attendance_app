@@ -100,6 +100,7 @@
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/card_list_user"
                     android:layout_width="match_parent"
                     android:layout_height="110dp"
                     android:layout_margin="4dp"
@@ -134,6 +135,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/card_location_office"
                     android:layout_width="match_parent"
                     android:layout_height="110dp"
                     android:layout_margin="4dp"
@@ -208,7 +210,8 @@
             android:layout_marginTop="3dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="6dp"
-            app:cardCornerRadius="8dp">
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="@color/yellow">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -228,7 +231,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:text="Distance settings"
                     android:includeFontPadding="false"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/white"
                     android:textSize="12sp" />
 
 
@@ -243,6 +246,7 @@
             android:layout_marginTop="3dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="6dp"
+            app:cardBackgroundColor="@color/yellow"
             app:cardCornerRadius="8dp">
 
             <LinearLayout
@@ -263,11 +267,17 @@
                     android:fontFamily="@font/poppins_medium"
                     android:text="Compare distance"
                     android:includeFontPadding="false"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/white"
                     android:textSize="12sp" />
 
 
             </LinearLayout>
+
+
+
+
+
+
 
         </androidx.cardview.widget.CardView>
 
