@@ -12,11 +12,13 @@ import android.view.WindowManager;
 
 public class Utility {
 
+    public static String uid = "";
+    public static String roleUser = "";
+
+
     public static void updateUI(Context from, Class to){
         Intent intent = new Intent(from, to);
         from.startActivity(intent);
-
-
     }
 
     public static void checkWindowSetFlag(Activity activity){
@@ -43,5 +45,20 @@ public class Utility {
             winParams.flags &= ~bits;
         }
         win.setAttributes(winParams);
+    }
+
+    public static boolean ValidateEmail(String email){
+        boolean validate;
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        String emailPattern2 = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+\\.+[a-z]+";
+
+        if (email.matches(emailPattern) || email.matches(emailPattern2) && email.length() > 0)
+        {
+            validate = true;
+        }else{
+            validate = false;
+        }
+
+        return validate;
     }
 }
