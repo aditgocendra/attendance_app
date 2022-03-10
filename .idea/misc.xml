@@ -28,14 +28,16 @@
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_authentication.xml" value="0.18519736842105264" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_dashboard.xml" value="0.22" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_home_app.xml" value="0.25" />
+        <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_location_setting_office.xml" value="0.33" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_profile.xml" value="0.33" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_sign_in.xml" value="0.33" />
-        <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
+        <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_sign_up.xml" value="0.5" />
+        <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_users_list.xml" value="0.5217391304347826" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/fragment_auth.xml" value="0.4811965811965812" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/fragment_sign_in.xml" value="0.18519736842105264" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/fragment_sign_up.xml" value="0.22" />
-        <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/layout_grid_card_user.xml" value="0.67" />
+        <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/layout_grid_card_user.xml" value="0.25" />
       </map>
     </option>
   </component>
