@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/drawable/background_btn.xml" value="0.181" />
+        <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/drawable/background_custom_dialog.xml" value="0.197" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/drawable/background_gradient.xml" value="0.197" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/drawable/background_outline.xml" value="0.181" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/drawable/background_outline_btn.xml" value="0.181" />
@@ -17,6 +18,7 @@
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/drawable/ic_compare_distance.xml" value="0.197" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/drawable/ic_distance_settings.xml" value="0.197" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/drawable/ic_email.xml" value="0.181" />
+        <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/drawable/ic_filter.xml" value="0.197" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/drawable/ic_info.xml" value="0.197" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/drawable/ic_lock.xml" value="0.181" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/drawable/ic_logout.xml" value="0.197" />
@@ -25,7 +27,9 @@
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout-v28/activity_home_app.xml" value="0.29322916666666665" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_attendace_details.xml" value="0.24070115433946132" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_attendance_details.xml" value="0.33" />
+        <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_attendance_recap.xml" value="0.25" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_authentication.xml" value="0.18519736842105264" />
+        <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_compare_distance.xml" value="0.33" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_dashboard.xml" value="0.22" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_home_app.xml" value="0.25" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_location_setting_office.xml" value="0.33" />
@@ -34,10 +38,15 @@
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_sign_in.xml" value="0.33" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_sign_up.xml" value="0.5" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/activity_users_list.xml" value="0.5217391304347826" />
+        <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/custom_information_dialog.xml" value="0.33" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/fragment_auth.xml" value="0.4811965811965812" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/fragment_sign_in.xml" value="0.18519736842105264" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/fragment_sign_up.xml" value="0.22" />
+        <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/layout_dialog_detail_attendance.xml" value="0.33" />
+        <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/layout_dialog_distance_manage.xml" value="0.24070115433946132" />
+        <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/layout_dialog_filter_attendance.xml" value="0.33" />
         <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/layout_grid_card_user.xml" value="0.25" />
+        <entry key="..\:/Users/Gocendra/AndroidStudioProjects/AttendanceApp/app/src/main/res/layout/layout_option_item.xml" value="0.24070115433946132" />
       </map>
     </option>
   </component>
