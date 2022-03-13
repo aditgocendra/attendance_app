@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.Administrator.AttendanceRecap">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:background="@color/orange"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp">
+
+                <ImageView
+                    android:id="@+id/back_btn"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_back"
+                    android:layout_marginEnd="6dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Attendace Recap"
+                    android:textColor="@color/white"
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:includeFontPadding="false"
+                    android:layout_gravity="center_vertical|start"/>
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Users Attendance"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="13sp"
+                android:includeFontPadding="false"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/filter_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Filters"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="13sp"
+                android:layout_weight="1"
+                app:drawableEndCompat="@drawable/ic_filter"
+                android:includeFontPadding="false"
+                android:textAlignment="textEnd"
+                android:drawablePadding="3dp"/>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_user_attendance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"/>
+
+        <TextView
+            android:id="@+id/text_nothing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="There are no employees who take attendance today"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="12sp"
+            android:visibility="gone"
+            android:textAlignment="center"/>
+
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

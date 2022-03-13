@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Setting Distance Attendance"
+            android:fontFamily="@font/poppins_bold"
+            android:textSize="16sp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/black"
+            android:textAlignment="center"/>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Minimum Distance (Meters)"
+            android:layout_marginBottom="6dp"
+            android:layout_gravity="center_horizontal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/min_ti_distance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:focusableInTouchMode="true"
+                android:textSize="12sp"
+                android:inputType="number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Maximum Distance (Meters)"
+            android:layout_marginBottom="6dp"
+            android:layout_gravity="center_horizontal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/max_ti_distance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:focusableInTouchMode="true"
+                android:textSize="12sp"
+                android:inputType="number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:hint="Select Distance Math">
+
+            <AutoCompleteTextView
+                android:id="@+id/auto_complete_choice_math_distance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:inputType="none"
+                android:textSize="12sp"
+                android:fontFamily="@font/poppins_medium"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/finish_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Finish"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="12sp"
+            android:textAllCaps="false"/>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
