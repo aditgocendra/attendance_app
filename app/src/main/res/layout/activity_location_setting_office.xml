@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".View.Administrator.LocationSettingOffice">
 
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:progressTint="@color/orange"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,7 +72,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
-                android:maxLength="24"
                 android:inputType="text"
                 android:maxLines="4"
                 android:textSize="12sp"/>
@@ -72,6 +79,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/current_location_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="60dp"
@@ -103,7 +111,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/sign_up_btn"
+                android:id="@+id/preview_location_map"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -121,7 +129,7 @@
                 app:strokeColor="@color/orange" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/save_loc"
+                android:id="@+id/save_loc_office"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
