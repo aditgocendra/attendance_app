@@ -16,6 +16,7 @@ import com.ark.attendanceapp.View.Administrator.Dashboard;
 import com.ark.attendanceapp.View.Auth.Authentication;
 import com.ark.attendanceapp.databinding.ActivityProfileBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -54,6 +55,9 @@ public class Profile extends AppCompatActivity {
 
     private void listenerClick() {
         binding.backBtn.setOnClickListener(view -> finish());
+        if (!Utility.roleUser.equals("admin")){
+            binding.administratorBtn.setVisibility(View.GONE);
+        }
         binding.administratorBtn.setOnClickListener(view -> Utility.updateUI(Profile.this, Dashboard.class));
         binding.signOutBtn.setOnClickListener(view -> {
             FirebaseAuth.getInstance().signOut();
@@ -110,7 +114,7 @@ public class Profile extends AppCompatActivity {
                 }
 
             }
-        });
+        }).addOnFailureListener(e -> Toast.makeText(Profile.this, e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     private void pickImageSetup() {
@@ -145,8 +149,6 @@ public class Profile extends AppCompatActivity {
             deleteRef.delete();
 
         }
-
-
 
         uploadTask.addOnFailureListener(e -> Toast.makeText(Profile.this, "Upload : "+e.getMessage(), Toast.LENGTH_SHORT).show())
                 .addOnSuccessListener(taskSnapshot -> storageRef.getDownloadUrl()
