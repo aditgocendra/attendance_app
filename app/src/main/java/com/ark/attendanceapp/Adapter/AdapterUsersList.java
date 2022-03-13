@@ -5,22 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.ark.attendanceapp.Model.ModelUser;
 import com.ark.attendanceapp.R;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdapterUsersList extends RecyclerView.Adapter<AdapterUsersList.UsersListHolder> {
 
-    private List<ModelUser> listUsers;
+    private final List<ModelUser> listUsers;
     private Context mContext;
 
     public AdapterUsersList(List<ModelUser> listUsers, Context mContext) {
