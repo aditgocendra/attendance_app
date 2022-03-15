@@ -2,6 +2,7 @@ package com.ark.attendanceapp.View.Auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 import com.ark.attendanceapp.Utility;
 import com.ark.attendanceapp.View.Employee.HomeApp;
@@ -23,6 +24,8 @@ public class SignIn extends AppCompatActivity {
 
     private void listenerClick() {
         binding.backBtn.setOnClickListener(view -> finish());
+
+        binding.forgotPassRedirect.setOnClickListener(view -> Utility.updateUI(SignIn.this, ForgotPassword.class));
 
         binding.signInBtn.setOnClickListener(view -> {
             String email = binding.emailSignIn.getText().toString();

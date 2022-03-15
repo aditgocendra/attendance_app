@@ -65,6 +65,8 @@ public class CompareDistance extends AppCompatActivity {
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(2000);
 
+        binding.backBtn.setOnClickListener(view -> finish());
+
         binding.currentLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,37 +145,34 @@ public class CompareDistance extends AppCompatActivity {
             }
         });
 
-        binding.compareBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (latitudeCurrent != 0 && longitudeCurrent != 0){
-                    float euclideanResult = (float) Euclidean.euclidean(latitudeCurrent, longitudeCurrent, latitudeOffice, longitudeOffice);
-                    float manhattanResult = (float) Manhattan.manhattan(latitudeCurrent, longitudeCurrent, latitudeOffice, longitudeOffice);
+        binding.compareBtn.setOnClickListener(view -> {
+            if (latitudeCurrent != 0 && longitudeCurrent != 0){
+                float euclideanResult = (float) Euclidean.euclidean(latitudeCurrent, longitudeCurrent, latitudeOffice, longitudeOffice);
+                float manhattanResult = (float) Manhattan.manhattan(latitudeCurrent, longitudeCurrent, latitudeOffice, longitudeOffice);
 
-                    binding.manhattanResult.setText(String.valueOf(manhattanResult));
-                    binding.euclideanResult.setText(String.valueOf(euclideanResult));
+                binding.manhattanResult.setText(String.valueOf(manhattanResult));
+                binding.euclideanResult.setText(String.valueOf(euclideanResult));
 
-                    Log.d("Distance Result", euclideanResult+" / "+manhattanResult);
-                    // km value
-                    float oneDegreesEarth = (float) 111.322;
-                    float manhattanKm =  manhattanResult * oneDegreesEarth;
-                    float euclideanKm = euclideanResult * oneDegreesEarth;
+                Log.d("Distance Result", euclideanResult+" / "+manhattanResult);
+                // km value
+                float oneDegreesEarth = (float) 111.322;
+                float manhattanKm =  manhattanResult * oneDegreesEarth;
+                float euclideanKm = euclideanResult * oneDegreesEarth;
 
-                    Log.d("Distance Km Result", euclideanKm+" / "+manhattanKm);
+                Log.d("Distance Km Result", euclideanKm+" / "+manhattanKm);
 
-                    // meters value
-                    float manhattanMeters = manhattanKm * 1000;
-                    float euclideanMeters = euclideanKm * 1000;
+                // meters value
+                float manhattanMeters = manhattanKm * 1000;
+                float euclideanMeters = euclideanKm * 1000;
 
-                    Log.d("Distance Meters Result", euclideanMeters+" / "+manhattanMeters);
+                Log.d("Distance Meters Result", euclideanMeters+" / "+manhattanMeters);
 
-                    // set value to meters
-                    binding.manhattanConvertMeters.setText(String.valueOf(manhattanMeters));
-                    binding.euclideanConvertMeters.setText(String.valueOf(euclideanMeters));
+                // set value to meters
+                binding.manhattanConvertMeters.setText(String.valueOf(manhattanMeters));
+                binding.euclideanConvertMeters.setText(String.valueOf(euclideanMeters));
 
-                }else {
-                    Toast.makeText(CompareDistance.this, "Nothing location set", Toast.LENGTH_SHORT).show();
-                }
+            }else {
+                Toast.makeText(CompareDistance.this, "Nothing location set", Toast.LENGTH_SHORT).show();
             }
         });
     }
