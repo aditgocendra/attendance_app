@@ -9,6 +9,9 @@ import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
@@ -16,6 +19,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.ark.attendanceapp.View.Administrator.LocationSettingOffice;
 import com.google.android.gms.common.api.ApiException;
@@ -154,5 +159,30 @@ public class Utility {
         if (mapIntent.resolveActivity(mContext.getPackageManager()) != null) {
             mContext.startActivity(mapIntent);
         }
+    }
+
+    public static boolean isConnected = false;
+    public static boolean checkConnection(Context mContext){
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            connectivityManager.registerDefaultNetworkCallback(new ConnectivityManager.NetworkCallback(){
+                @Override
+                public void onAvailable(@NonNull Network network) {
+                    super.onAvailable(network);
+                    isConnected = true;
+                }
+                @Override
+                public void onLost(@NonNull Network network) {
+                    super.onLost(network);
+                    isConnected = false;
+                }
+            });
+        }else {
+            NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+            isConnected = activeNetwork != null &&
+                    activeNetwork.isConnectedOrConnecting();
+        }
+        return isConnected;
     }
 }

@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import android.Manifest;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +20,7 @@ import com.ark.attendanceapp.Model.ModelAttendanceDistance;
 import com.ark.attendanceapp.Model.ModelAttendanceUsers;
 import com.ark.attendanceapp.Model.ModelOfficeLocation;
 import com.ark.attendanceapp.Model.ModelUser;
+import com.ark.attendanceapp.NetworkChangeListener;
 import com.ark.attendanceapp.Utility;
 import com.ark.attendanceapp.databinding.ActivityHomeAppBinding;
 import com.google.android.gms.location.LocationCallback;
@@ -35,6 +39,7 @@ import java.util.Objects;
 public class HomeApp extends AppCompatActivity {
 
     private ActivityHomeAppBinding binding;
+    private final NetworkChangeListener networkChangeListener = new NetworkChangeListener();
     private final  DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
     private LocationRequest locationRequest;
@@ -52,12 +57,29 @@ public class HomeApp extends AppCompatActivity {
         setContentView(binding.getRoot());
         Utility.checkWindowSetFlag(this);
 
+        binding.accountImg.setEnabled(false);
         listenerClick();
         setUserData();
         setLocationOffice();
         setDistanceAttendance();
         setDateTime();
 
+    }
+
+    @Override
+    protected void onStart() {
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+            registerReceiver(networkChangeListener, filter);
+        }, 1000);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 
     private void listenerClick() {
@@ -186,7 +208,7 @@ public class HomeApp extends AppCompatActivity {
                     if (!modelUser.getUrl_photo().equals("-")){
                         Picasso.get().load(modelUser.getUrl_photo()).into(binding.accountImg);
                     }
-
+                    binding.accountImg.setEnabled(true);
                     checkUserAttendance();
                 }else {
                     Toast.makeText(HomeApp.this, "User data not found", Toast.LENGTH_SHORT).show();
@@ -214,6 +236,7 @@ public class HomeApp extends AppCompatActivity {
                     binding.attendanceSuccess.setVisibility(View.GONE);
                     binding.attendanceText.setVisibility(View.VISIBLE);
                 }
+                binding.attendanceBtn.setVisibility(View.VISIBLE);
             }else {
                 Toast.makeText(HomeApp.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
             }
