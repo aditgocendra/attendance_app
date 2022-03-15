@@ -2,22 +2,18 @@ package com.ark.attendanceapp.View.Employee;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 import com.ark.attendanceapp.Model.ModelUser;
 import com.ark.attendanceapp.Utility;
+import com.ark.attendanceapp.View.AboutApp;
 import com.ark.attendanceapp.View.Administrator.Dashboard;
 import com.ark.attendanceapp.View.Auth.Authentication;
 import com.ark.attendanceapp.databinding.ActivityProfileBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -62,6 +58,13 @@ public class Profile extends AppCompatActivity {
         binding.signOutBtn.setOnClickListener(view -> {
             FirebaseAuth.getInstance().signOut();
             Utility.updateUI(Profile.this, Authentication.class);
+        });
+
+        binding.aboutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utility.updateUI(Profile.this, AboutApp.class);
+            }
         });
 
         binding.pickPhotoBtn.setOnClickListener(view -> imagePick.launch("image/*"));
@@ -140,7 +143,6 @@ public class Profile extends AppCompatActivity {
         byte[] data = baos.toByteArray();
 
         UploadTask uploadTask = storageRef.putBytes(data);
-
 
         if (!oldUrlPhoto.equals("-")){
             FirebaseStorage referenceStorage = FirebaseStorage.getInstance();
