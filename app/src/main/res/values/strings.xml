@@ -7,4 +7,5 @@
     <string name="button">button</string>
     <string name="distance_math">The original distance resulting from the calculation of the distance formula.</string>
     <string name="distance_meters">The result of the distance calculation formula is then multiplied by 1 degree of the earth (111, 333 km).</string>
+    <string name="about">This application was created to make it easier for employees to do attendance by taking into account the distance between employees and the cafe location</string>
 </resources>

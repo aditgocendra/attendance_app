@@ -14,6 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AttendanceApp">
         <activity
+            android:name=".View.AboutApp"
+            android:exported="false" />
+        <activity
+            android:name=".View.Auth.ForgotPassword"
+            android:exported="false" />
+        <activity
             android:name=".View.Administrator.AttendanceRecap"
             android:exported="false" />
         <activity
@@ -24,9 +30,6 @@
             android:exported="false" />
         <activity
             android:name=".View.Administrator.UsersList"
-            android:exported="false" />
-        <activity
-            android:name=".View.Administrator.AttendanceDetails"
             android:exported="false" />
         <activity
             android:name=".View.Administrator.Dashboard"
