@@ -67,16 +67,16 @@
                 android:layout_height="96dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/women_user_default_img"
-                app:civ_border_width="1dp"
-                app:civ_border_color="@color/white"/>
+                app:civ_border_color="@color/white"
+                app:civ_border_width="1dp" />
 
             <!--            all role-->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="2dp">
 
@@ -89,13 +89,13 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
                         android:layout_marginStart="14dp"
+                        android:layout_marginTop="12dp"
                         android:layout_marginEnd="14dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:textSize="13sp"
                         android:text="Data User"
-                        android:textColor="#B3B3B3"/>
+                        android:textColor="#B3B3B3"
+                        android:textSize="13sp" />
 
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -158,9 +158,9 @@
                             android:background="@color/transparent"
                             android:drawableStart="@drawable/ic_phone"
                             android:drawablePadding="8dp"
-                            android:maxLength="13"
                             android:fontFamily="@font/poppins_medium"
                             android:inputType="number"
+                            android:maxLength="13"
                             android:textColor="#B3B3B3"
                             android:textSize="12sp" />
 
@@ -173,13 +173,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="14dp"
                         android:layout_marginEnd="14dp"
-                        android:minHeight="50dp"
-                        app:cornerRadius="32dp"
-                        android:text="Edit Photo Profile"
-                        android:textSize="12sp"
-                        android:textAllCaps="false"
                         android:fontFamily="@font/poppins_medium"
-                        app:strokeColor="@color/yellow"/>
+                        android:minHeight="50dp"
+                        android:text="Edit Photo Profile"
+                        android:textAllCaps="false"
+                        android:textSize="12sp"
+                        app:cornerRadius="32dp"
+                        app:strokeColor="@color/yellow" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/save_btn"
@@ -188,12 +188,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="14dp"
                         android:layout_marginEnd="14dp"
+                        android:fontFamily="@font/poppins_medium"
                         android:minHeight="50dp"
-                        app:cornerRadius="32dp"
                         android:text="Save Changes"
-                        android:textSize="12sp"
                         android:textAllCaps="false"
-                        android:fontFamily="@font/poppins_medium"/>
+                        android:textSize="12sp"
+                        app:cornerRadius="32dp" />
 
                 </LinearLayout>
 
@@ -224,13 +224,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
-                        android:padding="6dp"
                         android:fontFamily="@font/poppins_medium"
-                        android:textSize="13sp"
+                        android:padding="6dp"
                         android:text="Administrator"
                         android:textColor="#B3B3B3"
+                        android:textSize="13sp"
                         android:visibility="visible"
-                        app:drawableEndCompat="@drawable/ic_admin_panel"/>
+                        app:drawableEndCompat="@drawable/ic_admin_panel" />
 
                     <TextView
                         android:id="@+id/about_btn"
@@ -238,12 +238,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
-                        android:padding="6dp"
                         android:fontFamily="@font/poppins_medium"
-                        android:textSize="13sp"
+                        android:padding="6dp"
                         android:text="About"
                         android:textColor="#B3B3B3"
-                        app:drawableEndCompat="@drawable/ic_info"/>
+                        android:textSize="13sp"
+                        app:drawableEndCompat="@drawable/ic_info" />
 
                     <TextView
                         android:id="@+id/sign_out_btn"
@@ -251,12 +251,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
-                        android:padding="6dp"
-                        android:textSize="13sp"
                         android:fontFamily="@font/poppins_medium"
+                        android:padding="6dp"
                         android:text="Sign Out"
                         android:textColor="#B3B3B3"
-                        app:drawableEndCompat="@drawable/ic_logout"/>
+                        android:textSize="13sp"
+                        app:drawableEndCompat="@drawable/ic_logout" />
 
                 </LinearLayout>
 

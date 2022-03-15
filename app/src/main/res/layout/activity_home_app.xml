@@ -110,17 +110,18 @@
                 android:id="@+id/attendance_btn"
                 android:layout_width="136dp"
                 android:layout_height="136dp"
+                android:visibility="gone"
                 android:layout_centerInParent="true"
-                android:gravity="center"
-                android:background="@drawable/button_circle">
+                android:background="@drawable/button_circle"
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/attendance_success"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:src="@drawable/ic_check"
-                    android:visibility="gone"
-                    android:layout_gravity="center"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/attendance_text"
@@ -131,8 +132,8 @@
                     android:text="Attendance"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:visibility="visible"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="visible" />
 
             </LinearLayout>
 

@@ -127,13 +127,14 @@
 
 
     <TextView
+        android:id="@+id/forgot_pass_redirect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:text="Forgot password ? Recover account"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
         android:fontFamily="@font/poppins_medium"
         android:padding="16dp"
-        android:layout_centerInParent="true"
-        android:layout_alignParentBottom="true"/>
+        android:text="Forgot password ? Recover account"
+        android:textSize="12sp" />
 
 </RelativeLayout>
