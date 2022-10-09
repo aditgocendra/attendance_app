@@ -57,7 +57,7 @@ public class Dashboard extends AppCompatActivity {
         autoCompleteMathDistance = viewBottomDialog.findViewById(R.id.auto_complete_choice_math_distance);
         Button finishBtn = viewBottomDialog.findViewById(R.id.finish_btn);
 
-        String[] condition = {"Manhattan", "Euclidean"};
+        String[] condition = {"Haversine", "Euclidean"};
         ArrayAdapter<String> conditionAdapter;
         conditionAdapter = new ArrayAdapter<>(this, R.layout.layout_option_item, condition);
         autoCompleteMathDistance.setAdapter(conditionAdapter);

@@ -15,7 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import com.ark.attendanceapp.DistanceMath.Euclidean;
-import com.ark.attendanceapp.DistanceMath.Manhattan;
+import com.ark.attendanceapp.DistanceMath.Haversine;
 import com.ark.attendanceapp.Model.ModelAttendanceDistance;
 import com.ark.attendanceapp.Model.ModelAttendanceUsers;
 import com.ark.attendanceapp.Model.ModelOfficeLocation;
@@ -40,7 +40,7 @@ public class HomeApp extends AppCompatActivity {
 
     private ActivityHomeAppBinding binding;
     private final NetworkChangeListener networkChangeListener = new NetworkChangeListener();
-    private final  DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
     private LocationRequest locationRequest;
     private double latitudeOffice, longitudeOffice;
@@ -59,9 +59,9 @@ public class HomeApp extends AppCompatActivity {
 
         binding.accountImg.setEnabled(false);
         listenerClick();
+        setDistanceAttendance();
         setUserData();
         setLocationOffice();
-        setDistanceAttendance();
         setDateTime();
 
     }
@@ -147,7 +147,7 @@ public class HomeApp extends AppCompatActivity {
         }
         
         if (math.equals("Manhattan")){
-            distanceResult = (float) Manhattan.manhattan(latitudeCurrent, longitudeCurrent, latitudeOffice, longitudeOffice);
+            distanceResult = (float) Haversine.haversine(latitudeCurrent, longitudeCurrent, latitudeOffice, longitudeOffice);
         }else {
             distanceResult = (float) Euclidean.euclidean(latitudeCurrent, longitudeCurrent, latitudeOffice, longitudeOffice);
         }
@@ -232,7 +232,7 @@ public class HomeApp extends AppCompatActivity {
                     binding.attendanceText.setVisibility(View.GONE);
                     binding.textDirection.setText("Thank you for taking attendance today");
                 }else {
-                    binding.textDirection.setText("Welcome, please attendance for today!!");
+                    binding.textDirection.setText("Welcome, please attendance for today, minimum distance " + (double) max_distance_attendance + " Meters");
                     binding.attendanceSuccess.setVisibility(View.GONE);
                     binding.attendanceText.setVisibility(View.VISIBLE);
                 }

@@ -3,7 +3,6 @@ package com.ark.attendanceapp.View.Administrator;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.app.Dialog;
 import android.content.pm.PackageManager;
@@ -17,9 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.ark.attendanceapp.DistanceMath.Euclidean;
-import com.ark.attendanceapp.DistanceMath.Manhattan;
+import com.ark.attendanceapp.DistanceMath.Haversine;
 import com.ark.attendanceapp.Model.ModelOfficeLocation;
 import com.ark.attendanceapp.R;
 import com.ark.attendanceapp.Utility;
@@ -28,12 +26,9 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -148,27 +143,27 @@ public class CompareDistance extends AppCompatActivity {
         binding.compareBtn.setOnClickListener(view -> {
             if (latitudeCurrent != 0 && longitudeCurrent != 0){
                 float euclideanResult = (float) Euclidean.euclidean(latitudeCurrent, longitudeCurrent, latitudeOffice, longitudeOffice);
-                float manhattanResult = (float) Manhattan.manhattan(latitudeCurrent, longitudeCurrent, latitudeOffice, longitudeOffice);
+                float haversineResult = (float) Haversine.haversine(latitudeCurrent, longitudeCurrent, latitudeOffice, longitudeOffice);
 
-                binding.manhattanResult.setText(String.valueOf(manhattanResult));
+                binding.haversineResult.setText(String.valueOf(haversineResult));
                 binding.euclideanResult.setText(String.valueOf(euclideanResult));
 
-                Log.d("Distance Result", euclideanResult+" / "+manhattanResult);
+                Log.d("Distance Result", euclideanResult+" / "+haversineResult);
                 // km value
                 float oneDegreesEarth = (float) 111.322;
-                float manhattanKm =  manhattanResult * oneDegreesEarth;
+                float haversineKm =  haversineResult;
                 float euclideanKm = euclideanResult * oneDegreesEarth;
 
-                Log.d("Distance Km Result", euclideanKm+" / "+manhattanKm);
+                Log.d("Distance Km Result", euclideanKm+" / "+haversineKm);
 
                 // meters value
-                float manhattanMeters = manhattanKm * 1000;
+                float haversineMeters = haversineKm * 1000;
                 float euclideanMeters = euclideanKm * 1000;
 
-                Log.d("Distance Meters Result", euclideanMeters+" / "+manhattanMeters);
+                Log.d("Distance Meters Result", euclideanMeters+" / "+haversineMeters);
 
                 // set value to meters
-                binding.manhattanConvertMeters.setText(String.valueOf(manhattanMeters));
+                binding.haversineConvertMeters.setText(String.valueOf(haversineMeters));
                 binding.euclideanConvertMeters.setText(String.valueOf(euclideanMeters));
 
             }else {

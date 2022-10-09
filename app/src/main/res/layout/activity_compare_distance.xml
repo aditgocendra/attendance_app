@@ -326,7 +326,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Manhattan"
+                        android:text="Haversine"
                         android:fontFamily="@font/poppins_medium"
                         android:textAlignment="center"
                         android:includeFontPadding="false"
@@ -365,7 +365,7 @@
                         android:layout_weight="1"/>
 
                     <TextView
-                        android:id="@+id/manhattan_result"
+                        android:id="@+id/haversine_result"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="-"
@@ -412,7 +412,7 @@
                         android:layout_weight="1"/>
 
                     <TextView
-                        android:id="@+id/manhattan_convert_meters"
+                        android:id="@+id/haversine_convert_meters"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="-"
