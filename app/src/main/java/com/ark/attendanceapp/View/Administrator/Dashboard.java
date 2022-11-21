@@ -48,6 +48,8 @@ public class Dashboard extends AppCompatActivity {
 
         binding.cardAttendanceRecap.setOnClickListener(view -> Utility.updateUI(Dashboard.this, AttendanceRecap.class));
 
+        binding.cardTimePresenceSetting.setOnClickListener(v -> Utility.updateUI(Dashboard.this, PresenceTimeSettings.class));
+
     }
 
     private void setBottomDialog(){

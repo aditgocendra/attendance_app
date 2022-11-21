@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AttendanceApp">
         <activity
+            android:name=".View.Administrator.PresenceTimeSettings"
+            android:exported="false" />
+        <activity
             android:name=".View.AboutApp"
             android:exported="false" />
         <activity

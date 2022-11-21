@@ -1,5 +1,6 @@
 package com.ark.attendanceapp.Adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,20 +101,63 @@ public class AdapterAttendanceRecap extends RecyclerView.Adapter<AdapterAttendan
         LayoutInflater li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View viewBottomDialog = li.inflate(R.layout.layout_dialog_detail_attendance, null, false);
 
-        TextView textDateAttend, textTimeAttend, textDistanceAttend;
+        TextView textDateAttend, textTimeInAttend,textTimeOutAttend, textDistanceInAttend, textDistanceOutAttend;
         textDateAttend = viewBottomDialog.findViewById(R.id.text_date_attend);
-        textTimeAttend = viewBottomDialog.findViewById(R.id.text_time_attend);
-        textDistanceAttend = viewBottomDialog.findViewById(R.id.text_distance_attend);
+
+        textTimeInAttend = viewBottomDialog.findViewById(R.id.text_time_in_attend);
+        textTimeOutAttend = viewBottomDialog.findViewById(R.id.text_time_out_attend);
+
+        textDistanceInAttend = viewBottomDialog.findViewById(R.id.text_distance_in_attend);
+        textDistanceOutAttend = viewBottomDialog.findViewById(R.id.text_distance_out_attend);
 
         Button closeBtn = viewBottomDialog.findViewById(R.id.close_btn);
+        Button deleteBtn = viewBottomDialog.findViewById(R.id.delete_btn);
 
         textDateAttend.setText(modelAttendanceUsers.getDay());
-        textTimeAttend.setText(modelAttendanceUsers.getTime());
-        textDistanceAttend.setText(modelAttendanceUsers.getDistance());
+        textTimeInAttend.setText(modelAttendanceUsers.getTimeIn());
+        textTimeOutAttend.setText(modelAttendanceUsers.getDistanceIn());
+        textDistanceInAttend.setText(modelAttendanceUsers.getTimeOut());
+        textDistanceOutAttend.setText(modelAttendanceUsers.getDistanceOut());
+
+        deleteBtn.setOnClickListener(v -> {
+            confirmationDelete(modelAttendanceUsers.getDay(), modelAttendanceUsers.getKeyUser());
+            bottomSheetDialog.dismiss();
+        });
+
 
         closeBtn.setOnClickListener(view -> bottomSheetDialog.dismiss());
 
         bottomSheetDialog.setContentView(viewBottomDialog);
 
+    }
+
+    private void confirmationDelete(String day, String uidKey){
+        //Create the Dialog here
+        Dialog dialog = new Dialog(mContext);
+        dialog.setContentView(R.layout.layout_confirmation_delete);
+        dialog.getWindow().setBackgroundDrawable(mContext.getDrawable(R.drawable.background_center_rounded));
+
+        dialog.getWindow().setLayout(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        dialog.setCancelable(false); //Optional
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
+
+        Button Okay = dialog.findViewById(R.id.btn_okay);
+        Button Cancel = dialog.findViewById(R.id.btn_cancel);
+
+        dialog.show();
+        Okay.setOnClickListener(v -> {
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+            reference.child("attendance_users").child(day).child(uidKey).removeValue().addOnCompleteListener(task -> {
+                if (task.isSuccessful()){
+                    dialog.dismiss();
+                }
+            });
+            dialog.dismiss();
+        });
+
+        Cancel.setOnClickListener(v -> dialog.dismiss());
     }
 }

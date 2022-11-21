@@ -65,6 +65,10 @@ public class CompareDistance extends AppCompatActivity {
         binding.currentLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (Utility.isMockLocationEnabled(CompareDistance.this)){
+                    Toast.makeText(CompareDistance.this, "Fake GPS Detection", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 binding.progressCircular.setVisibility(View.VISIBLE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (ActivityCompat.checkSelfPermission(CompareDistance.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {

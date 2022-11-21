@@ -104,6 +104,9 @@ public class LocationSettingOffice extends AppCompatActivity {
             public void onClick(View view) {
                 binding.progressCircular.setVisibility(View.VISIBLE);
                 binding.currentLocationBtn.setEnabled(false);
+
+
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (ActivityCompat.checkSelfPermission(LocationSettingOffice.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         if (Utility.isGPSEnabled(LocationSettingOffice.this)) {
@@ -115,7 +118,24 @@ public class LocationSettingOffice extends AppCompatActivity {
                                     LocationServices.getFusedLocationProviderClient(LocationSettingOffice.this).removeLocationUpdates(this);
 
                                     if (locationResult.getLocations().size() > 0){
+
                                         int index = locationResult.getLocations().size() - 1;
+
+                                        // FOR API < 18
+                                        if (Utility.isMockLocationEnabled(LocationSettingOffice.this)){
+                                            Toast.makeText(LocationSettingOffice.this, "Deactivated your fake GPS", Toast.LENGTH_SHORT).show();
+                                            binding.progressCircular.setVisibility(View.GONE);
+                                            binding.currentLocationBtn.setEnabled(true);
+                                            return;
+                                        }
+                                        // FOR API > 18
+                                        if (Utility.isMockLocation(locationResult.getLocations().get(index))){
+                                            Toast.makeText(LocationSettingOffice.this, "Deactivated your fake GPS", Toast.LENGTH_SHORT).show();
+                                            binding.progressCircular.setVisibility(View.GONE);
+                                            binding.currentLocationBtn.setEnabled(true);
+                                            return;
+                                        }
+
                                         latitude = locationResult.getLocations().get(index).getLatitude();
                                         longitude = locationResult.getLocations().get(index).getLongitude();
 
@@ -126,13 +146,12 @@ public class LocationSettingOffice extends AppCompatActivity {
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
-                                        binding.progressCircular.setVisibility(View.GONE);
-                                        binding.currentLocationBtn.setEnabled(true);
                                     }else {
                                         Toast.makeText(LocationSettingOffice.this, "Find location failed", Toast.LENGTH_SHORT).show();
-                                        binding.progressCircular.setVisibility(View.GONE);
-                                        binding.currentLocationBtn.setEnabled(true);
                                     }
+
+                                    binding.progressCircular.setVisibility(View.GONE);
+                                    binding.currentLocationBtn.setEnabled(true);
                                 }
                             }, Looper.getMainLooper());
 

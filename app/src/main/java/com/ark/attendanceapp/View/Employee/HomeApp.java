@@ -19,20 +19,29 @@ import com.ark.attendanceapp.DistanceMath.Haversine;
 import com.ark.attendanceapp.Model.ModelAttendanceDistance;
 import com.ark.attendanceapp.Model.ModelAttendanceUsers;
 import com.ark.attendanceapp.Model.ModelOfficeLocation;
+import com.ark.attendanceapp.Model.ModelPresenceTime;
 import com.ark.attendanceapp.Model.ModelUser;
 import com.ark.attendanceapp.NetworkChangeListener;
 import com.ark.attendanceapp.Utility;
+import com.ark.attendanceapp.View.Administrator.CompareDistance;
+import com.ark.attendanceapp.View.Administrator.LocationSettingOffice;
 import com.ark.attendanceapp.databinding.ActivityHomeAppBinding;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -49,6 +58,9 @@ public class HomeApp extends AppCompatActivity {
     private float max_distance_attendance = 0;
     private String math = null;
 
+    private ModelAttendanceUsers attendanceUser;
+    private ModelPresenceTime presenceTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +71,11 @@ public class HomeApp extends AppCompatActivity {
 
         binding.accountImg.setEnabled(false);
         listenerClick();
+        setPresenceTime();
         setDistanceAttendance();
         setUserData();
         setLocationOffice();
         setDateTime();
-
     }
 
     @Override
@@ -91,6 +103,7 @@ public class HomeApp extends AppCompatActivity {
         locationRequest.setFastestInterval(2000);
 
         binding.attendanceBtn.setOnClickListener(view -> {
+
             binding.attendanceBtn.setEnabled(false);
             if (binding.attendanceSuccess.getVisibility() == View.VISIBLE){
                 binding.attendanceBtn.setEnabled(true);
@@ -114,6 +127,18 @@ public class HomeApp extends AppCompatActivity {
                             LocationServices.getFusedLocationProviderClient(HomeApp.this).removeLocationUpdates(this);
                             if (locationResult.getLocations().size() > 0){
                                 int index = locationResult.getLocations().size() - 1;
+                                // FOR API < 18
+                                if (Utility.isMockLocationEnabled(HomeApp.this)){
+                                    Toast.makeText(HomeApp.this, "Deactivated your fake GPS", Toast.LENGTH_SHORT).show();
+
+                                    return;
+                                }
+                                // FOR API > 18
+                                if (Utility.isMockLocation(locationResult.getLocations().get(index))){
+                                    Toast.makeText(HomeApp.this, "Deactivated your fake GPS", Toast.LENGTH_SHORT).show();
+
+                                    return;
+                                }
                                 double latitudeCurrent = locationResult.getLocations().get(index).getLatitude();
                                 double longitudeCurrent = locationResult.getLocations().get(index).getLongitude();
 
@@ -176,15 +201,98 @@ public class HomeApp extends AppCompatActivity {
 
         String day = month_name.substring(0, 3)+" "+cal.get(Calendar.DATE)+", "+cal.get(Calendar.YEAR);
         Log.d("test", day);
-        String time = binding.timeText.getText().toString();
-        ModelAttendanceUsers modelAttendanceUsers = new ModelAttendanceUsers(
-                latitudeCurrent,
-                longitudeCurrent,
-                distanceMeters+" Meters",
-                day,
-                time,
-                Utility.uid
-        );
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
+        String time = sdf.format(new Date());
+
+        ModelAttendanceUsers modelAttendanceUsers;
+
+        String hour = time.substring(0, 2);
+        String minute = time.substring(3, 5);
+
+        int timeIn = Integer.parseInt(presenceTime.getTime_in().substring(0,2));
+        int minuteIn= Integer.parseInt(presenceTime.getTime_in().substring(3,5));
+        int timeOut= Integer.parseInt(presenceTime.getTime_out().substring(0,2));
+        int minuteOut = Integer.parseInt(presenceTime.getTime_out().substring(3,5));
+
+        if (minuteIn + 15 > 60){
+            minuteIn = 60;
+        }else{
+            minuteIn += 15;
+        }
+
+        if (minuteOut + 15 > 60){
+            minuteOut = 60;
+        }else{
+            minuteOut += 15;
+        }
+        boolean timeInCondition = Integer.parseInt(hour) == timeIn && Integer.parseInt(minute) <= minuteIn;
+        boolean timeOutCondition = Integer.parseInt(hour) == timeOut && Integer.parseInt(minute) <= minuteOut;
+
+        if (attendanceUser == null) {
+            // User Not Absence
+            if (timeInCondition) {
+                // In
+                modelAttendanceUsers = new ModelAttendanceUsers(
+                        latitudeCurrent,
+                        longitudeCurrent,
+                        0,
+                        0,
+                        distanceMeters+" Meters",
+                        "-",
+                        day,
+                        time,
+                        "-",
+                        Utility.uid
+                );
+            }else{
+                // Out
+                if (timeOutCondition){
+                    modelAttendanceUsers = new ModelAttendanceUsers(
+                            0,
+                            0,
+                            latitudeCurrent,
+                            longitudeCurrent,
+                            "-",
+                            distanceMeters+" Meters",
+                            day,
+                            "-",
+                            time,
+                            Utility.uid
+                    );
+
+                }else{
+                    Toast.makeText(this, "Not presence time", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+        }else{
+
+            if (timeInCondition) {
+                // In
+                attendanceUser.setLatitudeIn(latitudeCurrent);
+                attendanceUser.setLongitudeIn(longitudeCurrent);
+                attendanceUser.setDistanceIn(distanceMeters+" Meters");
+                attendanceUser.setTimeIn(time);
+            }else{
+                // Out
+                if (timeOutCondition){
+                    attendanceUser.setLatitudeOut(latitudeCurrent);
+                    attendanceUser.setLongitudeOut(longitudeCurrent);
+                    attendanceUser.setDistanceOut(distanceMeters+" Meters");
+                    attendanceUser.setTimeOut(time);
+
+                }else{
+                    Toast.makeText(this, "Not presence time", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            modelAttendanceUsers = attendanceUser;
+        }
+
+
 
         reference.child("attendance_users").child(day).child(Utility.uid).setValue(modelAttendanceUsers).addOnSuccessListener(unused -> {
             Toast.makeText(HomeApp.this, "Attendance Success", Toast.LENGTH_SHORT).show();
@@ -224,19 +332,55 @@ public class HomeApp extends AppCompatActivity {
         String month_name = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
         String day = month_name.substring(0, 3)+" "+cal.get(Calendar.DATE)+", "+cal.get(Calendar.YEAR);
 
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
+        String time = sdf.format(new Date());
+        int hour = Integer.parseInt(time.substring(0, 2));
+        int minute = Integer.parseInt(time.substring(3, 5));
+
         reference.child("attendance_users").child(day).child(Utility.uid).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()){
-                ModelAttendanceUsers modelAttendanceUsers = task.getResult().getValue(ModelAttendanceUsers.class);
-                if (modelAttendanceUsers != null){
-                    binding.attendanceSuccess.setVisibility(View.VISIBLE);
-                    binding.attendanceText.setVisibility(View.GONE);
-                    binding.textDirection.setText("Thank you for taking attendance today");
-                }else {
-                    binding.textDirection.setText("Welcome, please attendance for today, minimum distance " + (double) max_distance_attendance + " Meters");
-                    binding.attendanceSuccess.setVisibility(View.GONE);
-                    binding.attendanceText.setVisibility(View.VISIBLE);
+                 attendanceUser = task.getResult().getValue(ModelAttendanceUsers.class);
+
+                 int timeIn = Integer.parseInt(presenceTime.getTime_in().substring(0,2));
+                 int minuteIn= Integer.parseInt(presenceTime.getTime_in().substring(3,5));
+                 int timeOut= Integer.parseInt(presenceTime.getTime_out().substring(0,2));
+                 int minuteOut = Integer.parseInt(presenceTime.getTime_out().substring(3,5));
+
+                 if (minuteIn + 15 > 60){
+                     minuteIn = 60;
+                 }else{
+                     minuteIn += 15;
+                 }
+
+                if (minuteOut + 15 > 60){
+                    minuteOut = 60;
+                }else{
+                    minuteOut += 15;
                 }
-                binding.attendanceBtn.setVisibility(View.VISIBLE);
+
+                 if (attendanceUser != null) {
+                     if (attendanceUser.getTimeIn().equals("-") && hour == timeIn && minute <= minuteIn){
+                         binding.textDirection.setText("Welcome, please attendance in for today, minimum distance " + (double) max_distance_attendance + " Meters");
+                         binding.attendanceSuccess.setVisibility(View.GONE);
+                         binding.attendanceText.setVisibility(View.VISIBLE);
+                         binding.attendanceBtn.setVisibility(View.VISIBLE);
+                     }else if(attendanceUser.getTimeOut().equals("-") && hour == timeOut && minute <= minuteOut){
+                         binding.textDirection.setText("Welcome, please attendance out for today, minimum distance " + (double) max_distance_attendance + " Meters");
+                         binding.attendanceSuccess.setVisibility(View.GONE);
+                         binding.attendanceText.setVisibility(View.VISIBLE);
+                         binding.attendanceBtn.setVisibility(View.VISIBLE);
+                     }else{
+                         binding.attendanceSuccess.setVisibility(View.VISIBLE);
+                         binding.attendanceText.setVisibility(View.GONE);
+                         binding.textDirection.setText("Thank you for taking attendance today");
+                         binding.attendanceBtn.setVisibility(View.VISIBLE);
+                     }
+                 }else{
+                     binding.textDirection.setText("Welcome, please attendance for today, minimum distance " + (double) max_distance_attendance + " Meters");
+                     binding.attendanceSuccess.setVisibility(View.GONE);
+                     binding.attendanceText.setVisibility(View.VISIBLE);
+                     binding.attendanceBtn.setVisibility(View.VISIBLE);
+                 }
             }else {
                 Toast.makeText(HomeApp.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -283,6 +427,17 @@ public class HomeApp extends AppCompatActivity {
                 }
             }else {
                 Toast.makeText(HomeApp.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setPresenceTime(){
+        reference.child("presence_time").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()){
+                    presenceTime = task.getResult().getValue(ModelPresenceTime.class);
+                }
             }
         });
     }

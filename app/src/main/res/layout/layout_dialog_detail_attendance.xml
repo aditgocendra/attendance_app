@@ -66,13 +66,13 @@
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/poppins_medium"
                 android:textSize="12sp"
-                android:text="Time"
+                android:text="Time In"
                 android:includeFontPadding="false"
                 android:textColor="#B3B3B3"
                 android:layout_weight="1"/>
 
             <TextView
-                android:id="@+id/text_time_attend"
+                android:id="@+id/text_time_in_attend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -99,13 +99,46 @@
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/poppins_medium"
                 android:textSize="12sp"
-                android:text="Distance"
+                android:text="Time Out"
                 android:includeFontPadding="false"
                 android:textColor="#B3B3B3"
                 android:layout_weight="1"/>
 
             <TextView
-                android:id="@+id/text_distance_attend"
+                android:id="@+id/text_time_out_attend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="12sp"
+                android:text="13.00 AM"
+                android:includeFontPadding="false"
+                android:textColor="#B3B3B3"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="6dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="12sp"
+                android:text="Distance In"
+                android:includeFontPadding="false"
+                android:textColor="#B3B3B3"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/text_distance_in_attend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -118,6 +151,49 @@
                 android:layout_weight="1"/>
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="6dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="12sp"
+                android:text="Distance Out"
+                android:includeFontPadding="false"
+                android:textColor="#B3B3B3"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/text_distance_out_attend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="12sp"
+                android:text="6.3 Meters"
+                android:includeFontPadding="false"
+                android:textColor="#B3B3B3"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/delete_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="12sp"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/close_btn"
