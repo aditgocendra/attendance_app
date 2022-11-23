@@ -114,9 +114,11 @@ public class AdapterAttendanceRecap extends RecyclerView.Adapter<AdapterAttendan
         Button deleteBtn = viewBottomDialog.findViewById(R.id.delete_btn);
 
         textDateAttend.setText(modelAttendanceUsers.getDay());
+
         textTimeInAttend.setText(modelAttendanceUsers.getTimeIn());
-        textTimeOutAttend.setText(modelAttendanceUsers.getDistanceIn());
-        textDistanceInAttend.setText(modelAttendanceUsers.getTimeOut());
+        textTimeOutAttend.setText(modelAttendanceUsers.getTimeOut());
+
+        textDistanceInAttend.setText(modelAttendanceUsers.getDistanceIn());
         textDistanceOutAttend.setText(modelAttendanceUsers.getDistanceOut());
 
         deleteBtn.setOnClickListener(v -> {

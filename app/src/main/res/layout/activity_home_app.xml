@@ -96,7 +96,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <TextView
                 android:id="@+id/text_direction"
                 android:layout_width="match_parent"
@@ -107,33 +106,73 @@
                 android:textSize="14sp" />
 
             <LinearLayout
-                android:id="@+id/attendance_btn"
-                android:layout_width="136dp"
-                android:layout_height="136dp"
-                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_centerInParent="true"
-                android:background="@drawable/button_circle"
                 android:gravity="center">
 
-                <ImageView
-                    android:id="@+id/attendance_success"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_check"
-                    android:visibility="gone" />
+                <LinearLayout
+                    android:id="@+id/attendance_btn_in"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="visible"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/button_circle"
+                    android:gravity="center">
 
-                <TextView
-                    android:id="@+id/attendance_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_bold"
-                    android:includeFontPadding="false"
-                    android:text="Attendance"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:visibility="visible" />
+                    <ImageView
+                        android:id="@+id/attendance_success_in"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_check"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/attendance_text_in"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_bold"
+                        android:includeFontPadding="false"
+                        android:text="In"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/attendance_btn_out"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="visible"
+                    android:background="@drawable/button_circle"
+                    android:gravity="center"
+                    android:layout_margin="8dp">
+
+                    <ImageView
+                        android:id="@+id/attendance_success_out"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_check"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/attendance_text_out"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_bold"
+                        android:includeFontPadding="false"
+                        android:text="Out"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:visibility="visible" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

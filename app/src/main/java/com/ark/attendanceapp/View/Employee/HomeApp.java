@@ -35,8 +35,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -70,12 +72,17 @@ public class HomeApp extends AppCompatActivity {
         Utility.checkWindowSetFlag(this);
 
         binding.accountImg.setEnabled(false);
-        listenerClick();
+        setUserData();
+
+
         setPresenceTime();
         setDistanceAttendance();
-        setUserData();
+
         setLocationOffice();
         setDateTime();
+
+        Handler handler = new Handler();
+        handler.postDelayed(() -> listenerClick(), 2000);
     }
 
     @Override
@@ -102,11 +109,57 @@ public class HomeApp extends AppCompatActivity {
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(2000);
 
-        binding.attendanceBtn.setOnClickListener(view -> {
 
-            binding.attendanceBtn.setEnabled(false);
-            if (binding.attendanceSuccess.getVisibility() == View.VISIBLE){
-                binding.attendanceBtn.setEnabled(true);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
+        String time = sdf.format(new Date());
+
+        String hour = time.substring(0, 2);
+        String minute = time.substring(3, 5);
+
+        int timeIn = Integer.parseInt(presenceTime.getTime_in().substring(0,2));
+        int minuteIn= Integer.parseInt(presenceTime.getTime_in().substring(3,5));
+        int timeOut= Integer.parseInt(presenceTime.getTime_out().substring(0,2));
+        int minuteOut = Integer.parseInt(presenceTime.getTime_out().substring(3,5));
+
+        if (minuteIn + 15 > 60){
+            minuteIn = 60;
+        }else{
+            minuteIn += 15;
+        }
+
+        if (minuteOut + 15 > 60){
+            minuteOut = 60;
+        }else{
+            minuteOut += 15;
+        }
+        boolean timeInCondition = Integer.parseInt(hour) == timeIn && Integer.parseInt(minute) <= minuteIn;
+        boolean timeOutCondition = Integer.parseInt(hour) == timeOut && Integer.parseInt(minute) <= minuteOut;
+
+        binding.attendanceBtnIn.setOnClickListener(view -> {
+            if (!timeInCondition){
+                Toast.makeText(this, "Not presence time", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            binding.attendanceBtnIn.setEnabled(false);
+            if (binding.attendanceSuccessIn.getVisibility() == View.VISIBLE){
+                binding.attendanceBtnIn.setEnabled(true);
+                Toast.makeText(this, "You have done attendance today, please come back tomorrow :)", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this, "Please wait until the attendance process is complete", Toast.LENGTH_SHORT).show();
+                getCurrentLocation();
+            }
+
+        });
+
+        binding.attendanceBtnOut.setOnClickListener(view -> {
+            if (!timeOutCondition){
+                Toast.makeText(this, "Not presence time", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            binding.attendanceBtnOut.setEnabled(false);
+            if (binding.attendanceSuccessOut.getVisibility() == View.VISIBLE){
+                binding.attendanceBtnOut.setEnabled(true);
                 Toast.makeText(this, "You have done attendance today, please come back tomorrow :)", Toast.LENGTH_SHORT).show();
             }else {
                 Toast.makeText(this, "Please wait until the attendance process is complete", Toast.LENGTH_SHORT).show();
@@ -144,21 +197,25 @@ public class HomeApp extends AppCompatActivity {
 
                                 attendanceEmployee(latitudeCurrent, longitudeCurrent);
 
-                                binding.attendanceBtn.setEnabled(true);
+
+
                             }else {
                                 Toast.makeText(HomeApp.this, "Find location failed", Toast.LENGTH_SHORT).show();
-                                binding.attendanceBtn.setEnabled(true);
+                                binding.attendanceBtnIn.setEnabled(true);
+                                binding.attendanceBtnOut.setEnabled(true);
                             }
                         }
                     }, Looper.getMainLooper());
 
                 } else {
                     Utility.turnOnGPS(locationRequest, HomeApp.this);
-                    binding.attendanceBtn.setEnabled(true);
+                    binding.attendanceBtnIn.setEnabled(true);
+                    binding.attendanceBtnOut.setEnabled(true);
                 }
             } else {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1005);
-                binding.attendanceBtn.setEnabled(true);
+                binding.attendanceBtnIn.setEnabled(true);
+                binding.attendanceBtnOut.setEnabled(true);
             }
         }
     }
@@ -292,12 +349,20 @@ public class HomeApp extends AppCompatActivity {
             modelAttendanceUsers = attendanceUser;
         }
 
-
-
         reference.child("attendance_users").child(day).child(Utility.uid).setValue(modelAttendanceUsers).addOnSuccessListener(unused -> {
             Toast.makeText(HomeApp.this, "Attendance Success", Toast.LENGTH_SHORT).show();
-            binding.attendanceSuccess.setVisibility(View.VISIBLE);
-            binding.attendanceText.setVisibility(View.GONE);
+            if (!binding.attendanceBtnIn.isEnabled()){
+                binding.attendanceBtnIn.setEnabled(true);
+                binding.attendanceSuccessIn.setVisibility(View.VISIBLE);
+                binding.attendanceTextIn.setVisibility(View.GONE);
+            }
+
+            if (!binding.attendanceBtnOut.isEnabled()){
+                binding.attendanceBtnOut.setEnabled(true);
+                binding.attendanceSuccessOut.setVisibility(View.VISIBLE);
+                binding.attendanceTextOut.setVisibility(View.GONE);
+            }
+
             binding.textDirection.setText("Thank you for taking attendance today");
 
         }).addOnFailureListener(e -> Toast.makeText(HomeApp.this, e.getMessage(), Toast.LENGTH_SHORT).show());
@@ -359,27 +424,52 @@ public class HomeApp extends AppCompatActivity {
                 }
 
                  if (attendanceUser != null) {
-                     if (attendanceUser.getTimeIn().equals("-") && hour == timeIn && minute <= minuteIn){
-                         binding.textDirection.setText("Welcome, please attendance in for today, minimum distance " + (double) max_distance_attendance + " Meters");
-                         binding.attendanceSuccess.setVisibility(View.GONE);
-                         binding.attendanceText.setVisibility(View.VISIBLE);
-                         binding.attendanceBtn.setVisibility(View.VISIBLE);
-                     }else if(attendanceUser.getTimeOut().equals("-") && hour == timeOut && minute <= minuteOut){
-                         binding.textDirection.setText("Welcome, please attendance out for today, minimum distance " + (double) max_distance_attendance + " Meters");
-                         binding.attendanceSuccess.setVisibility(View.GONE);
-                         binding.attendanceText.setVisibility(View.VISIBLE);
-                         binding.attendanceBtn.setVisibility(View.VISIBLE);
-                     }else{
-                         binding.attendanceSuccess.setVisibility(View.VISIBLE);
-                         binding.attendanceText.setVisibility(View.GONE);
-                         binding.textDirection.setText("Thank you for taking attendance today");
-                         binding.attendanceBtn.setVisibility(View.VISIBLE);
-                     }
+                        // In
+                        if (attendanceUser.getTimeIn().equals("-") && attendanceUser.getTimeOut().equals("_")){
+                             binding.attendanceSuccessIn.setVisibility(View.VISIBLE);
+                             binding.attendanceSuccessOut.setVisibility(View.VISIBLE);
+                             binding.attendanceTextIn.setVisibility(View.GONE);
+                             binding.attendanceTextOut.setVisibility(View.GONE);
+                             binding.textDirection.setText("Thank you for taking attendance today");
+                             binding.attendanceBtnIn.setVisibility(View.VISIBLE);
+                             binding.attendanceBtnOut.setVisibility(View.VISIBLE);
+                        }
+
+                        if (attendanceUser.getTimeIn().equals("-")){
+                            binding.attendanceSuccessIn.setVisibility(View.GONE);
+                            binding.attendanceTextIn.setVisibility(View.VISIBLE);
+                            binding.attendanceBtnIn.setVisibility(View.VISIBLE);
+                            binding.textDirection.setText("Welcome, please attendance in for today, minimum distance " + (double) max_distance_attendance + " Meters");
+                        }else{
+
+                                binding.attendanceSuccessIn.setVisibility(View.VISIBLE);
+                                binding.attendanceTextIn.setVisibility(View.GONE);
+                                binding.attendanceBtnIn.setVisibility(View.VISIBLE);
+
+                        }
+                        // Out
+                         if (attendanceUser.getTimeOut().equals("-")){
+                             binding.attendanceSuccessOut.setVisibility(View.GONE);
+                             binding.attendanceTextOut.setVisibility(View.VISIBLE);
+                             binding.attendanceBtnOut.setVisibility(View.VISIBLE);
+                             binding.textDirection.setText("Welcome, please attendance out for today, minimum distance " + (double) max_distance_attendance + " Meters");
+                         }else{
+
+                                 binding.attendanceSuccessOut.setVisibility(View.VISIBLE);
+                                 binding.attendanceTextOut.setVisibility(View.GONE);
+                                 binding.attendanceBtnOut.setVisibility(View.VISIBLE);
+
+                         }
+
                  }else{
                      binding.textDirection.setText("Welcome, please attendance for today, minimum distance " + (double) max_distance_attendance + " Meters");
-                     binding.attendanceSuccess.setVisibility(View.GONE);
-                     binding.attendanceText.setVisibility(View.VISIBLE);
-                     binding.attendanceBtn.setVisibility(View.VISIBLE);
+                     binding.attendanceSuccessIn.setVisibility(View.GONE);
+                     binding.attendanceTextIn.setVisibility(View.VISIBLE);
+                     binding.attendanceBtnIn.setVisibility(View.VISIBLE);
+
+                     binding.attendanceSuccessOut.setVisibility(View.GONE);
+                     binding.attendanceTextOut.setVisibility(View.VISIBLE);
+                     binding.attendanceBtnOut.setVisibility(View.VISIBLE);
                  }
             }else {
                 Toast.makeText(HomeApp.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
@@ -415,20 +505,40 @@ public class HomeApp extends AppCompatActivity {
     }
 
     private void setLocationOffice(){
-        reference.child("office_location").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()){
-                ModelOfficeLocation modelOfficeLocation = task.getResult().getValue(ModelOfficeLocation.class);
+        reference.child("office_location").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ModelOfficeLocation modelOfficeLocation = snapshot.getValue(ModelOfficeLocation.class);
                 if (modelOfficeLocation != null){
                     latitudeOffice = modelOfficeLocation.getLatitude();
                     longitudeOffice = modelOfficeLocation.getLongitude();
+
                 }else {
                     Toast.makeText(HomeApp.this, "Office location not set", Toast.LENGTH_SHORT).show();
-                    binding.attendanceBtn.setEnabled(false);
+                    binding.attendanceBtnIn.setEnabled(false);
                 }
-            }else {
-                Toast.makeText(HomeApp.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+
+//        reference.child("office_location").get().addOnCompleteListener(task -> {
+//            if (task.isSuccessful()){
+//                ModelOfficeLocation modelOfficeLocation = task.getResult().getValue(ModelOfficeLocation.class);
+//                if (modelOfficeLocation != null){
+//                    latitudeOffice = modelOfficeLocation.getLatitude();
+//                    longitudeOffice = modelOfficeLocation.getLongitude();
+//                }else {
+//                    Toast.makeText(HomeApp.this, "Office location not set", Toast.LENGTH_SHORT).show();
+//                    binding.attendanceBtnIn.setEnabled(false);
+//                }
+//            }else {
+//                Toast.makeText(HomeApp.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     private void setPresenceTime(){
